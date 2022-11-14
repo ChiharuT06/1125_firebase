@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- <script src="js/test.js"></script> -->
+    
+
+    <title>Firefighter</title>
+</head>
+
+<script>
+    var canvas,ctx;
+    var player;
+
+    var scene = 0;
+
+    var keyRight = false;
+    var keyLeft = false;
+    var keyTop = false;
+    var keyBottom = false;
+
+    function player(x,y){
+        this.x = x;
+        this.y = y;
+        this.speed = 4;
+
+        this.move = function(){
+            if(keyRight)this.x +=this.speed;
+            if(keyLeft)this.x -=this.speed;
+            if(keyTop)this.y -=this.speed;
+            if(keyBottom)this.y +=this.speed;
+         }   
+
+        this.draw = function(){
+            drawArc(x,y,20,"blue");
+        }
+    }
+
+    function drawArc(x,y,r,col){
+        ctx.beginPath();
+        ctx.fillStyle = col;
+        ctx.arc(x,y,r,0,2*Math.PI);
+        ctx.fill();
+    }    
+
+    function keyDown(e){
+        if(e.keyCode == 39) keyRight = true;
+        if(e.keyCode == 37) keyLeft = true;
+        if(e.keyCode == 38) keyTop = true;
+        if(e.keyCode == 40) keyBottom = true;
+        if(e.keyCode == 32) scene = 1;
+    }
+
+    function keyUp(e){
+        if(e.keyCode == 39) keyRight = false;
+        if(e.keyCode == 37) keyLeft = false;
+        if(e.keyCode == 38) keyTop = false;
+        if(e.keyCode == 40) keyBottom = false;
+    }
+
+    function init(){
+        canvas=document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        canvas.width = "480";
+        canvas.height="640";
+
+        addEventListener("keydown",keyDown);
+        addEventListener("keyup",keyUp);
+
+        player = new player(canvas.width/2,500);
+
+        setInterval(loop,20);
+
+    }
+
+    function loop(){
+        ctx.fillStyle = "#fbfbfb";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+     if(scene == 0){
+        ctx.font = "35px Alial";
+        text="スペースでスタート";
+        textWidth = ctx.measureText(text).width;
+        ctx.fillStyle="lightgreen";
+        ctx.fillText(text,(canvas.width-textWidth)/2,300);
+     }
+      //if(scene == 1){
+        //player.draw();
+        //ctx.fillStyle = "blue";
+        //ctx.arc(canvas.width/2,500,20,0,2*Math.PI);
+        //ctx.fill();
+      //}  
+
+       if(scene==1){
+        player.move();
+        player.draw();
+       }
+    }
+  
+  onload = init;
+</script>
+
+    
+
+
+<!-- ここはもう絶対に触らない！！ -->
+<body>
+
+    <div><canvas id="canvas" ></canvas></div>
+
+
+</body>
+<script src="js/jquery-2.1.3.min.js"></script>
+</html>

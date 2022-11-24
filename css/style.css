@@ -1,10 +1,41 @@
 
-div{
-    text-align: center;
+#video{
+    z-index: -1;
+    overflow: hidden;
+    position: absolute;
+    width: 99%;
+    
 }
 
 #canvas{
     border: solid 1px;
-    margin-top: 20px;
+    margin-top: 100px;
+    text-align: center;
+
+}
+
+.game{
+    text-align: center;
+    
+}
+
+#login{
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:white;
+    background-color: cadetblue;
+    font-size: large;
+    cursor: pointer;
+
+}
+
+.bt{
+    text-align: center;
+    margin: 300px 100px auto;
+    
+    
+
 
 }

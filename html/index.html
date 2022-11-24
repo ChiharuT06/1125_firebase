@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/jquery-2.1.3.min.js"></script>
-    <!-- <script src="js/test.js"></script> -->
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jquery-2.1.3.min.js"></script>
     
 
     <title>Firefighter</title>
@@ -27,6 +26,7 @@
 
     function player(x,y){
         this.x = x;
+        //変数の前にthisを付けることでclass内で扱えるようになる
         this.y = y;
         this.r = 20;
         this.speed = 0;
@@ -62,6 +62,7 @@
          }   
         this.draw = function(){
             drawArc(this.x,this.y,this.r,"blue");
+            //x座標、y座標、半径、色
         }
     }
 
@@ -84,6 +85,9 @@
         ctx.beginPath();
         ctx.fillStyle = col;
         ctx.arc(x,y,r,0,2*Math.PI);
+        //x座標、y座標、円の始まり、円の終わり
+        //円の始まり、円の終わりはMathPIでPIを取得
+        //そこに2を掛けて、180度で360度
         ctx.fill();
     }    
 
@@ -109,6 +113,7 @@
     }
 
     function keyDown(e){
+        //それぞれのキーコードを押すと起きる変化
         if(e.keyCode == 39) keyRight = true;
         if(e.keyCode == 37) keyLeft = true;
         if(e.keyCode == 38) keyTop = true;
@@ -133,7 +138,9 @@
 
     function init(){
         canvas=document.getElementById("canvas");
+        //↑ id = canvasを取得する
         ctx = canvas.getContext("2d");
+        //↑ 2d描画に特化したものを取得する
         canvas.width = "480";
         canvas.height="640";
 
@@ -143,18 +150,22 @@
         player = new player(canvas.width/2,500);
 
         setInterval(loop,20);
+        //↑指定した時間ごとにループを処理する
 
     }
 
     function loop(){
         ctx.fillStyle = "#fbfbfb";
         ctx.fillRect(0,0,canvas.width,canvas.height);
+        //canvasの大きさに併せて描画
      if(scene == 0){
         ctx.font = "35px Alial";
         text="スペースでスタート";
         textWidth = ctx.measureText(text).width;
-        ctx.fillStyle="lightgreen";
+        //textの幅を取得
+        ctx.fillStyle="cadetblue";
         ctx.fillText(text,(canvas.width-textWidth)/2,300);
+        //fillTextでtextのx座標を中心に持ってくる
      }
 
        if(scene==1){
@@ -181,7 +192,11 @@
 <!-- ここはもう絶対に触らない！！ -->
 <body>
 
-    <div><canvas id="canvas" ></canvas></div>
+    <div class="all">
+        <video id="video"src="../video/xmas.mp4" type="video/mp4"webkit-playsinline playsinline muted autoplay loop></video>   
+        <div class="game">
+        <canvas id="canvas" ></canvas></div>
+       </div>
 
 </body>
 </html>
